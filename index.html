@@ -149,19 +149,24 @@
 
   /* plans */
   #planos{background:linear-gradient(180deg,transparent,var(--bg2) 30%,var(--bg2) 70%,transparent)}
-  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:3rem;align-items:stretch}
-  .plan{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:2rem;display:flex;flex-direction:column;gap:1rem;position:relative}
+  .plans{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:3rem;align-items:stretch}
+  .plan{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:1.7rem 1.5rem;display:flex;flex-direction:column;gap:1rem;position:relative}
   .plan.best{border:2px solid var(--lime);background:linear-gradient(180deg,rgba(255,48,73,.08),var(--card) 40%)}
   .plan .ribbon{position:absolute;top:-13px;left:2rem;background:var(--lime);color:#fff;font:800 .68rem Unbounded,sans-serif;letter-spacing:.08em;padding:.35rem .7rem;border-radius:6px}
   .plan h4{font-family:Unbounded,sans-serif;font-size:1.05rem}
   .plan .sub{color:var(--muted);font-size:.9rem}
-  .plan .amount{font:900 2.6rem Unbounded,sans-serif;letter-spacing:-.03em}
+  .plan .amount{font:900 2.1rem Unbounded,sans-serif;letter-spacing:-.03em}
+  .plan .pre{color:var(--muted);font-size:.85rem;margin-bottom:-.2rem}
+  .plan .per{color:var(--muted);font-size:.85rem;margin-top:-.5rem}
+  .plan li.lim{color:var(--muted)}
+  .plan li.lim::before{color:var(--muted);font-weight:500}
   .plan .amount small{font-size:.9rem;color:var(--muted);font-weight:500;letter-spacing:0}
   .plan ul{list-style:none;display:grid;gap:.55rem;margin:.4rem 0 1rem}
-  .plan li{display:flex;gap:.6rem;font-size:.95rem}
+  .plan li{display:flex;gap:.6rem;font-size:.92rem}
   .plan li::before{content:"✓";color:var(--lime);font-weight:900}
   .plan .btn{margin-top:auto}
-  @media(max-width:900px){.plans{grid-template-columns:1fr}}
+  @media(max-width:1100px){.plans{grid-template-columns:1fr 1fr;row-gap:2rem}}
+  @media(max-width:640px){.plans{grid-template-columns:1fr}}
 
   /* results */
   .results{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-top:2.6rem}
@@ -220,79 +225,90 @@ const SITE = {
 
   // Planos. Deixe "destaque: true" em um deles.
   planos: [
-    { nome: "1 jogo", sub: "Pagamento único, o jogo é seu", preco: "R$ 79,90", periodo: "",
-      itens: ["Escolha 1 jogo do catálogo", "Sem mensalidade", "Instalação com suporte", "Atualizações do jogo"],
-      botao: "Escolher meu jogo", msg: "Olá! Quero comprar 1 jogo (R$ 79,90)." },
-    { nome: "Pacote 5 jogos", sub: "Escolha até 5 jogos, pagamento único", preco: "R$ 139,90", periodo: "", destaque: true,
-      itens: ["Até 5 jogos do catálogo", "Sem mensalidade", "Atualizações incluídas", "Suporte no WhatsApp"],
-      botao: "Quero 5 jogos", msg: "Olá! Quero o pacote de 5 jogos (R$ 139,90)." },
-    { nome: "Pacote Full", sub: "Todos os jogos, pagamento único", preco: "R$ 189,90", periodo: "",
-      itens: ["Todos os jogos do catálogo", "Sem mensalidade", "Atualizações incluídas", "Suporte prioritário no WhatsApp"],
-      botao: "Quero o Pacote Full", msg: "Olá! Quero o Pacote Full com todos os jogos (R$ 189,90)." },
+    { nome: "Plano Live", preco: "R$ 79,90", periodo: "a cada 30 dias", destaque: true,
+      sub: "Assinatura mensal com todos os jogos do catálogo. Renova a cada 30 dias, cancela quando quiser.",
+      itens: ["Todos os jogos do catálogo", "Live do TikTok ligada nos jogos", "URL para OBS e LIVE Studio", "Voz nos jogos"],
+      limites: ["2 jogos abertos ao mesmo tempo", "2 URLs de OBS", "1 @ do TikTok", "100 falas de voz por dia", "Sem limite de minutos por dia"],
+      botao: "Assinar o Plano Live", msg: "Olá! Quero assinar o Plano Live (R$ 79,90 a cada 30 dias)." },
+    { nome: "Plano Completo", preco: "R$ 119,90", periodo: "a cada 30 dias",
+      sub: "Assinatura mensal com o catálogo inteiro e os jogos que entrarem depois. Cancela quando quiser.",
+      itens: ["Todos os jogos, e os que entrarem depois", "Live do TikTok ligada nos jogos", "URL para OBS e LIVE Studio", "Voz nos jogos"],
+      limites: ["3 jogos abertos ao mesmo tempo", "3 URLs de OBS", "2 @ do TikTok", "300 falas de voz por dia", "Sem limite de minutos por dia"],
+      botao: "Assinar o Completo", msg: "Olá! Quero assinar o Plano Completo (R$ 119,90 a cada 30 dias)." },
+    { nome: "Plano Completo Vitalício", preco: "R$ 219,90", periodo: "pagamento único",
+      sub: "Tudo o que o Plano Completo tem, pagando uma vez só. Sem prazo para acabar.",
+      itens: ["Todos os jogos, e os que entrarem depois", "Live do TikTok ligada nos jogos", "URL para OBS e LIVE Studio", "Voz nos jogos"],
+      limites: ["3 jogos abertos ao mesmo tempo", "3 URLs de OBS", "2 @ do TikTok", "300 falas de voz por dia", "Sem limite de minutos por dia"],
+      botao: "Quero o vitalício", msg: "Olá! Quero o Plano Completo Vitalício (R$ 219,90, pagamento único)." },
+    { nome: "Jogo avulso", prefixo: "a partir de", preco: "R$ 70,00", periodo: "por jogo · compra única",
+      sub: "Compra única de um jogo, sem prazo.",
+      itens: ["Um jogo à sua escolha", "Live do TikTok ligada no jogo", "URL para OBS e LIVE Studio"],
+      limites: ["1 jogo aberto por vez", "1 URL de OBS", "1 @ do TikTok", "Sem limite de minutos por dia"],
+      botao: "Escolher meu jogo", msg: "Olá! Quero comprar um jogo avulso (a partir de R$ 70,00)." },
   ],
 
   // Catálogo. "imagem" e "video" são opcionais (caminho do arquivo ou link).
   // "cor" muda o brilho do card. "acoes" = o que o público faz → o que acontece.
   // "descricao" e "detalhes" aparecem na janela que abre ao clicar no jogo (opcionais).
   jogos: [
-    { nome: "Trenzinho da Alegria 3D", emoji: "🚂", cor: "#ffb020", tag: "NOVO", precoAvulso: "R$ 79,90", imagem: "img/jogos/trenzinho-da-alegria.png",
+    { nome: "Trenzinho da Alegria 3D", emoji: "🚂", cor: "#ffb020", tag: "NOVO", precoAvulso: "R$ 70,00", imagem: "img/jogos/trenzinho-da-alegria.png",
       frase: "Quem comenta embarca na carreta de LED", plats: ["PC"],
       descricao: "Uma carreta da alegria toda acesa de LED passeia por uma cidade à noite. Cada pessoa que comenta embarca como uma criancinha com a foto do perfil e o @, e o comentário aparece num balão em cima dela. A câmera muda de ângulo sozinha enquanto você fala com o público.",
       detalhes: ["76 lugares na carreta", "Formato em pé (9:16)", "Câmera automática", "Modo de teste sem live", "Windows 10 ou 11", "TikTok LIVE Studio ou OBS"],
       acoes: [["💬","Comentário","EMBARCA NA CARRETA"],["💥","Presente (você escolhe)","EXPLOSÃO DE COR"],["🌈","Presente (você escolhe)","CARRETA ARCO-ÍRIS"],["🎆","Presente (você escolhe)","FESTA COM FOGOS"]] },
-    { nome: "Paredão do Churrasco 3D", emoji: "🔊", cor: "#ffb020", tag: "", precoAvulso: "R$ 79,90", imagem: "img/jogos/paredao-do-churrasco.png",
+    { nome: "Paredão do Churrasco 3D", emoji: "🔊", cor: "#ffb020", tag: "", precoAvulso: "R$ 70,00", imagem: "img/jogos/paredao-do-churrasco.png",
       frase: "Quem comenta vira personagem e entra na festa", plats: ["PC", "ANDROID"],
       descricao: "Um encontro de som automotivo com churrasco: cada pessoa que comenta vira um personagem e cai na festa. Os presentes trazem carros, aumentam o grave e acendem a churrasqueira.",
       acoes: [["💬","Comentário","ENTRA NA FESTA"],["🚗","Presente Carro","GANHA UM CARRO"],["🔊","Presente Paredão","MAIS GRAVE"],["🍖","Presente Churrasco","CHURRASCO E FESTA"]] },
-    { nome: "Dança das Cadeiras das Baratas", emoji: "🪑", cor: "#ff3d81", tag: "", precoAvulso: "R$ 79,90", imagem: "img/jogos/danca-das-cadeiras.png",
+    { nome: "Dança das Cadeiras das Baratas", emoji: "🪑", cor: "#ff3d81", tag: "", precoAvulso: "R$ 70,00", imagem: "img/jogos/danca-das-cadeiras.png",
       frase: "Quem comenta vira barata e disputa a cadeira", plats: ["PC", "ANDROID"],
       descricao: "A clássica dança das cadeiras com baratinhas em 3D. Quando a música para, o chat comenta SENTAR e corre para a cadeira. Presentes dão poderes e trazem de volta quem foi eliminado.",
       acoes: [["💬","Comentário","ENTRA NA ARENA"],["🪑","Comentar SENTAR","CORRE PARA A CADEIRA"],["💥","Presentes","ATAQUES E VANTAGENS"],["🏟️","Presente de retorno","VOLTA PARA O JOGO"]] },
-    { nome: "Casamento das Baratas 3D", emoji: "💒", cor: "#ff7ab6", tag: "", precoAvulso: "R$ 79,90", imagem: "img/jogos/casamento-das-baratas.png",
+    { nome: "Casamento das Baratas 3D", emoji: "💒", cor: "#ff7ab6", tag: "", precoAvulso: "R$ 70,00", imagem: "img/jogos/casamento-das-baratas.png",
       frase: "Quem comenta vira barata e entra na festa", plats: ["PC", "ANDROID"],
       descricao: "Uma festa de casamento de baratinhas em 3D. Quem comenta entra no salão, e os presentes trocam a dança, escolhem um novo casal de noivos e soltam efeitos na pista.",
       acoes: [["💬","Comentário","ENTRA NA FESTA"],["💃","Presentes","TROCA A DANÇA"],["💍","Presente","NOVO CASAL"],["💥","Presentes","EFEITOS NA PISTA"]] },
-    { nome: "Urna dos Times", emoji: "🏟️", cor: "#3dd68c", tag: "", precoAvulso: "R$ 79,90", imagem: "img/jogos/urna-dos-times.webp",
+    { nome: "Urna dos Times", emoji: "🏟️", cor: "#3dd68c", tag: "", precoAvulso: "R$ 70,00", imagem: "img/jogos/urna-dos-times.webp",
       frase: "Qual é a maior torcida da sua live?", plats: ["PC", "ANDROID"],
       descricao: "Urnas de futebol lado a lado: o chat vota no time do coração e o placar sobe na tela. Cada time tem o seu presente, e no fim da rodada o campeão aparece.",
       acoes: [["💬","Comentário","1 VOTO NO TIME"],["⭐","Presente do time","20 VOTOS NO TIME"],["🏆","Fim da rodada","CAMPEÃO NA TELA"]] },
-    { nome: "Bola da Morte", emoji: "⚔️", cor: "#ff5a36", tag: "", precoAvulso: "R$ 79,90", imagem: "img/jogos/bola-da-morte.png",
+    { nome: "Bola da Morte", emoji: "⚔️", cor: "#ff5a36", tag: "", precoAvulso: "R$ 70,00", imagem: "img/jogos/bola-da-morte.png",
       frase: "Batalha de bola de lâmina com o chat", plats: ["PC"],
       descricao: "Uma arena no Roblox em que quem comenta entra na batalha. Os presentes viram golpes no rival, escudo, cura e ataques especiais.",
       acoes: [["💬","Comentário","ENTRA NA ARENA"],["⚔️","Presente de ataque","GOLPE NO RIVAL"],["🛡️","Presente de defesa","ESCUDO OU CURA"],["☄️","Presente especial","ESPECIAL NA ARENA"]] },
-    { nome: "Roblox Paint User", emoji: "🎨", cor: "#b06bff", tag: "", precoAvulso: "R$ 79,90", imagem: "img/jogos/roblox-paint-user.png",
+    { nome: "Roblox Paint User", emoji: "🎨", cor: "#b06bff", tag: "", precoAvulso: "R$ 70,00", imagem: "img/jogos/roblox-paint-user.png",
       frase: "A foto de quem interage pintada na parede", plats: ["PC"],
       descricao: "No Roblox, o seu avatar pinta na parede o @ e a foto de quem interage com a live. Seguir, compartilhar e mandar presente deixam a pintura maior e mais caprichada.",
       acoes: [["💬","Comentário","@ NA PAREDE"],["➕","Seguir","FOTO NA PAREDE"],["🔁","Compartilhar","FOTO PINTADA"],["⭐","Presente","FOTO MAIOR"]] },
-    { nome: "Enzo Pé na Porta", emoji: "🚪", cor: "#5aa9ff", tag: "", precoAvulso: "R$ 79,90", imagem: "img/jogos/enzo-pe-na-porta.png",
+    { nome: "Enzo Pé na Porta", emoji: "🚪", cor: "#5aa9ff", tag: "", precoAvulso: "R$ 70,00", imagem: "img/jogos/enzo-pe-na-porta.png",
       frase: "Cada interação vira um chute na porta", plats: ["PC", "ANDROID"],
       descricao: "O Enzo chuta a porta do quarto em 3D a cada interação da live. A porta racha, quebra com física de verdade e uma nova entra no lugar.",
       acoes: [["👟","Interação","CHUTE NA PORTA"],["💥","Presente","CHUTE FORTE"],["⚡","Presente maior","CHUTE ESPECIAL"],["🎬","Presente top","CÂMERA LENTA"]] },
-    { nome: "Stop Live", emoji: "🛑", cor: "#ffcf3d", tag: "", precoAvulso: "R$ 79,90", imagem: "img/jogos/stop-live.png",
+    { nome: "Stop Live", emoji: "🛑", cor: "#ffcf3d", tag: "", precoAvulso: "R$ 70,00", imagem: "img/jogos/stop-live.png",
       frase: "O STOP do chat, com foto e ranking", plats: ["PC", "ANDROID"],
       descricao: "Sai uma categoria e uma letra; o chat responde nos comentários e quem acerta aparece com a foto do perfil e sobe no ranking. Presentes mexem no tempo, na letra e nos pontos.",
       acoes: [["💬","Resposta certa","VALE PONTOS"],["⏱️","Presente","MAIS TEMPO OU CONGELA"],["🔤","Presente","TROCA A LETRA"],["✨","Presente","PONTOS EM DOBRO"]] },
-    { nome: "Impressora de Fotos", emoji: "🖨️", cor: "#ffb020", tag: "", precoAvulso: "R$ 79,90", imagem: "img/jogos/impressora-de-fotos.webp",
+    { nome: "Impressora de Fotos", emoji: "🖨️", cor: "#ffb020", tag: "", precoAvulso: "R$ 70,00", imagem: "img/jogos/impressora-de-fotos.webp",
       frase: "A foto de quem comenta, impressa ao vivo", plats: ["PC"],
       descricao: "Uma impressora imprime a foto do perfil de quem interage e pendura no varal. Quanto maior o presente, mais caprichada a foto: de preto e branco até a moldura lendária.",
       acoes: [["💬","Comentário","FOTO PRETO E BRANCO"],["🎨","1 a 9 moedas","FOTO COLORIDA"],["✨","10 a 99 moedas","FOTO ESPECIAL"],["👑","100 moedas ou mais","FOTO LENDÁRIA"]] },
-    { nome: "Cabo de Guerra Presidentes", emoji: "💪", cor: "#ff3049", tag: "", precoAvulso: "R$ 79,90", imagem: "img/jogos/cabo-de-guerra.webp",
+    { nome: "Cabo de Guerra Presidentes", emoji: "💪", cor: "#ff3049", tag: "", precoAvulso: "R$ 70,00", imagem: "img/jogos/cabo-de-guerra.webp",
       frase: "Cada presente puxa a corda para um lado", plats: ["PC", "ANDROID"],
       descricao: "Dois lados, uma corda e o chat decidindo quem vence. Cada presente puxa para um dos lados; quem chega na linha ganha e a rodada recomeça sozinha.",
       acoes: [["🌹","Rosa","PUXÃO"],["💐","Perfume","PUXÃO MÉDIO"],["🎊","Confete","PUXÃO FORTE"],["🌌","Galáxia","PUXÃO ESPECIAL"]] },
-    { nome: "Votação 6x1", emoji: "🏛️", cor: "#3d8bff", tag: "", precoAvulso: "R$ 79,90", imagem: "img/jogos/votacao-6x1.png",
+    { nome: "Votação 6x1", emoji: "🏛️", cor: "#3d8bff", tag: "", precoAvulso: "R$ 70,00", imagem: "img/jogos/votacao-6x1.png",
       frase: "O chat vota SIM ou NÃO, ao vivo", plats: ["PC", "ANDROID"],
       descricao: "Um plenário em pé com placar ao vivo: o chat vota SIM ou NÃO e cada voto aparece na tela. As votações recomeçam sozinhas.",
       acoes: [["💬","Comentário","1 VOTO"],["🌹","Rosa","10 VOTOS"],["💐","Perfume","VOTO POR MOEDA"],["💗","Mãos em coração","VOTO POR MOEDA"]] },
-    { nome: "Urna Interativa", emoji: "🗳️", cor: "#3dd68c", tag: "", precoAvulso: "R$ 79,90", imagem: "img/jogos/urna-interativa.png",
+    { nome: "Urna Interativa", emoji: "🗳️", cor: "#3dd68c", tag: "", precoAvulso: "R$ 70,00", imagem: "img/jogos/urna-interativa.png",
       frase: "Cada presente vira ponto na urna", plats: ["PC", "ANDROID"],
       descricao: "Duas urnas eletrônicas em pé: cada presente vira ponto para um dos lados, a mão digita e confirma, e a rodada recomeça sozinha.",
       acoes: [["🌹","Rosa","1 PONTO"],["💐","Combo de rosas","PONTOS SOMADOS"],["🍩","Rosquinha","DESTAQUE"],["🎊","Confete","FOGOS NO CONFIRMA"]] },
-    { nome: "Corrida de Presidentes", emoji: "🏎️", cor: "#3dd68c", tag: "", precoAvulso: "R$ 79,90", imagem: "img/jogos/corrida-de-presidentes.webp",
+    { nome: "Corrida de Presidentes", emoji: "🏎️", cor: "#3dd68c", tag: "", precoAvulso: "R$ 70,00", imagem: "img/jogos/corrida-de-presidentes.webp",
       frase: "O chat decide quem chega primeiro", plats: ["PC", "ANDROID"],
       descricao: "Uma corrida de kart na praia em que cada presente empurra um dos dois karts: impulso, superarrancada, casca de banana e escudo.",
       acoes: [["🌹","Rosa","IMPULSO"],["🍌","Casca de banana","ESCORREGÃO"],["🍩","Rosquinha","SUPERARRANCADA"],["🎊","Confete","TROPEÇO + ESCUDO"]] },
-    { nome: "Corrida Maluca", emoji: "🏁", cor: "#ffcf3d", tag: "", precoAvulso: "R$ 79,90", imagem: "img/jogos/corrida-maluca.webp",
+    { nome: "Corrida Maluca", emoji: "🏁", cor: "#ffcf3d", tag: "", precoAvulso: "R$ 70,00", imagem: "img/jogos/corrida-maluca.webp",
       frase: "Quem comenta entra na pista", plats: ["PC", "ANDROID"],
       descricao: "Cada comentário vira um carro com o @ na pista, e os presentes viram nitro, óleo, míssil e bomba no líder. Ranking ao vivo do começo ao fim.",
       acoes: [["💬","Comentário","ENTRA NA CORRIDA"],["🌹","Rosa","NITRO"],["🛢️","GG","ÓLEO NA PISTA"],["💐","Perfume","MÍSSIL"],["🎊","Confete","BOMBA NO LÍDER"]] },
@@ -304,9 +320,9 @@ const SITE = {
 
   faq: [
     ["Preciso saber programar?", "Não. Você abre o jogo, digita o seu @ da live e pronto. Se travar em qualquer passo, o suporte te ajuda pelo WhatsApp."],
-    ["Como eu compro?", "Clique no plano ou no jogo que você quer. Você cai direto no nosso WhatsApp, recebe o link de pagamento e, assim que pagar, enviamos o acesso e o passo a passo. O pagamento é único: sem mensalidade."],
+    ["Como eu compro?", "Clique no plano ou no jogo que você quer. Você cai direto no nosso WhatsApp, recebe o link de pagamento e, assim que pagar, enviamos o acesso e o passo a passo. Tem os planos mensais (renovam a cada 30 dias e cancelam quando você quiser), o vitalício com pagamento único e a compra avulsa de um jogo."],
     ["Funciona no celular?", "Os jogos marcados com ANDROID rodam no celular. Os demais rodam no computador com Windows, junto com o seu programa de transmissão."],
-    ["Posso usar mais de um jogo na mesma live?", "Pode. Com o pacote de 5 jogos ou o Pacote Full você troca de jogo quantas vezes quiser durante a transmissão."],
+    ["Posso usar mais de um jogo na mesma live?", "Pode. No Plano Live você deixa 2 jogos abertos ao mesmo tempo, e no Completo ou no Vitalício, 3. No jogo avulso é 1 jogo por vez."],
     ["Posso ganhar dinheiro com isso?", "Os jogos dão ao público um motivo concreto para comentar e mandar presente. O resultado depende da sua live: horário, público e o quanto você chama a interação."],
     ["E se não funcionar no meu computador?", "Chame o suporte antes de comprar e a gente confirma se a sua máquina roda. Depois da compra, ajudamos na instalação."],
   ],
@@ -336,7 +352,7 @@ const SITE = {
           <a class="btn btn-ghost wa-link" data-msg="Olá! Tenho uma dúvida antes de comprar.">Tirar dúvida no WhatsApp</a>
         </div>
         <div class="hero-stats">
-          <div class="stat"><b>R$ 79,90</b><span>pagamento único</span></div>
+          <div class="stat"><b>R$ 70</b><span>a partir de, por jogo</span></div>
           <div class="stat"><b>0</b><span>linhas de código</span></div>
           <div class="stat"><b>1 min</b><span>para conectar</span></div>
         </div>
@@ -382,7 +398,7 @@ const SITE = {
         <h2 class="display">Da compra ao chat jogando<br>em quatro passos</h2>
       </div>
       <div class="steps">
-        <div class="step reveal"><div class="ic">🎯</div><h4>Escolha</h4><p>Veja os jogos funcionando e escolha um, ou leve vários num pacote.</p></div>
+        <div class="step reveal"><div class="ic">🎯</div><h4>Escolha</h4><p>Veja os jogos funcionando e compre um avulso ou leve todos num plano.</p></div>
         <div class="step reveal"><div class="ic">💬</div><h4>Compre no WhatsApp</h4><p>Você recebe o link de pagamento seguro e o acesso logo depois.</p></div>
         <div class="step reveal"><div class="ic">🔌</div><h4>Conecte o seu @</h4><p>Abra o jogo, digite o seu usuário da live uma vez e ponha na transmissão.</p></div>
         <div class="step reveal"><div class="ic">🎉</div><h4>Deixe o chat jogar</h4><p>Comentário e presente viram ação na tela, e o espectador vê que foi ele.</p></div>
@@ -396,7 +412,7 @@ const SITE = {
       <div class="reveal" style="text-align:center">
         <span class="eyebrow">Planos</span>
         <h2 class="display">Quanto custa</h2>
-        <p class="lead" style="margin:0 auto">Um jogo só, cinco à sua escolha ou o catálogo inteiro. Pagamento único, sem mensalidade.</p>
+        <p class="lead" style="margin:0 auto">Planos mensais sem fidelidade, o vitalício com pagamento único ou um jogo avulso.</p>
       </div>
       <div class="plans" id="plans"></div>
     </div>
@@ -469,7 +485,7 @@ const SITE = {
       <div class="actions" id="m-actions"></div>
       <div class="modal-ctas">
         <a class="btn btn-lime wa-link" id="m-buy"></a>
-        <a class="btn btn-ghost wa-link" data-msg="Olá! Quero o Pacote Full com todos os jogos (R$ 189,90).">Todos os jogos no Pacote Full</a>
+        <a class="btn btn-ghost wa-link" data-msg="Olá! Quero o Plano Live com todos os jogos (R$ 79,90 a cada 30 dias).">Todos no Plano Live</a>
       </div>
     </div>
   </div>
@@ -549,9 +565,11 @@ const SITE = {
   $('#plans').innerHTML = SITE.planos.map(p => `
     <div class="plan reveal ${p.destaque ? 'best' : ''}">
       ${p.destaque ? '<span class="ribbon">MAIS ESCOLHIDO</span>' : ''}
-      <div><h4>${esc(p.nome)}</h4><div class="sub">${esc(p.sub)}</div></div>
-      <div class="amount">${esc(p.preco)}<small>${esc(p.periodo)}</small></div>
-      <ul>${p.itens.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+      <h4>${esc(p.nome)}</h4>
+      <div>${p.prefixo ? `<div class="pre">${esc(p.prefixo)}</div>` : ''}<div class="amount">${esc(p.preco)}</div></div>
+      <div class="per">${esc(p.periodo)}</div>
+      <div class="sub">${esc(p.sub)}</div>
+      <ul>${p.itens.map(x => `<li>${esc(x)}</li>`).join('')}${(p.limites || []).map(x => `<li class="lim">${esc(x)}</li>`).join('')}</ul>
       <a class="btn ${p.destaque ? 'btn-lime' : 'btn-ghost'} wa-link" data-msg="${esc(p.msg)}">${esc(p.botao)}</a>
     </div>`).join('');
 
