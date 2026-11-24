@@ -205,7 +205,7 @@
    ===================================================================== */
 const SITE = {
   marca: "SCALEX GAMES",           // nome que aparece no topo e no rodapé
-  whatsapp: "5500000000000",        // DDI + DDD + número, só dígitos
+  whatsapp: "5517992069605",        // DDI + DDD + número, só dígitos
   email: "contato@seudominio.com.br",
   instagram: "https://instagram.com/seuperfil",
   plataforma: "TikTok LIVE",
@@ -374,7 +374,7 @@ const SITE = {
       <div class="reveal">
         <span class="eyebrow">Dúvidas</span>
         <h2 class="display">Perguntas frequentes</h2>
-        <p class="lead">Não achou a sua? Chame no WhatsApp: a gente responde antes de você comprar.</p>
+        <p class="lead">Não achou a sua? Chame no WhatsApp <b id="faq-wa"></b>: a gente responde antes de você comprar.</p>
         <br><a class="btn btn-wa wa-link" data-msg="Olá! Tenho uma dúvida sobre os jogos.">Chamar no WhatsApp</a>
       </div>
       <div id="faq-list"></div>
@@ -401,7 +401,7 @@ const SITE = {
   <div class="wrap foot">
     <div class="logo"><svg class="logo-mark" viewBox="220 220 640 640" aria-hidden="true"><polygon points="220,220 604,476 860,860 476,604" fill="#ff3049"/><polygon points="860,220 604,604 220,860 476,476" fill="#f3f3f5"/></svg><span data-k="marca"></span></div>
     <div style="display:flex;gap:1.5rem;flex-wrap:wrap">
-      <a id="f-email"></a><a id="f-insta" target="_blank" rel="noopener">Instagram</a><a class="wa-link" data-msg="Olá!">WhatsApp</a>
+      <a id="f-email"></a><a id="f-insta" target="_blank" rel="noopener">Instagram</a><a class="wa-link" id="f-wa" data-msg="Olá!">WhatsApp</a>
     </div>
     <div id="f-copy"></div>
   </div>
@@ -441,6 +441,9 @@ const SITE = {
   $('#s-games').textContent = SITE.jogos.length;
   $('#f-email').textContent = SITE.email; $('#f-email').href = 'mailto:' + SITE.email;
   $('#f-insta').href = SITE.instagram;
+  const n = SITE.whatsapp.slice(2); const waTxt = `(${n.slice(0,2)}) ${n.slice(2,7)}-${n.slice(7)}`;
+  $('#f-wa').textContent = 'WhatsApp ' + waTxt;
+  $('#faq-wa').textContent = waTxt;
   $('#f-copy').textContent = `© ${new Date().getFullYear()} ${SITE.marca}`;
 
   const art = g => `${g.imagem ? `<img src="${esc(g.imagem)}" alt="">` : esc(g.emoji)}${g.tag ? `<span class="tag ${g.tag === 'EM ALTA' ? 'hot' : ''}">${esc(g.tag)}</span>` : ''}`;
